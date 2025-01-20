@@ -1,0 +1,11 @@
+numpy
+pandas
+scikit-learn
+torch
+transformers
+python-dotenv
+pytest
+jupyter
+langchain
+langchain-experimental
+langchain-community
