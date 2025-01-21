@@ -30,7 +30,7 @@ def validate_dataset(
         validation_results["errors"].append("DataFrame is empty.")
         return validation_results
 
-    # Check if the DataFrame has NaN values    
+    # Check reqired columns   
     if required_columns:
         missing_columns = [col for col in required_columns if col not in df.columns]
         if missing_columns:
@@ -43,4 +43,12 @@ def validate_dataset(
         if non_numeric_columns:
             validation_results["is_valid"] = False
             validation_results["errors"].append(f"Non-numeric columns: {non_numeric_columns}")
+
+    # Check for NaN values
+    nan_columns = df.columns[df.isna().any()].tolist()
+    if nan_columns:
+        validation_results["is_valid"] = False
+        validation_results["errors"].append(f"Columns with NaN values: {nan_columns}")
+    
+    return validation_results
             
