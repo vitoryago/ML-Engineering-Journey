@@ -1,0 +1,54 @@
+# .dockerignore
+# This file tells Docker which files and folders to ignore when copying files to the container
+
+# Version control
+.git/
+.gitignore
+
+# Python cache files
+# Python creates these cache files to run programs faster
+__pycache__/
+
+# Compiled Python files
+*.pyc
+
+# Optimized Python files
+*.pyo
+
+# Python DLL files
+*.pyd
+
+
+# Virtual environment
+# Your virtual environment - not needed in the container
+venv/
+
+# Another common virtual environment name
+.env/
+
+
+# Development and test files
+# Test files - unless you need them in your container
+tests/
+
+# Log files
+*.log
+
+# pytest cache directory
+.pytest_cache/
+
+
+# Documentation
+# Documentation files - unless you need them in your container
+docs/
+
+# Markdown files (like README.md)
+*.md
+
+# Juptyer notebooks (unless specifically needed)
+notebooks
+*.ipynb
+
+# Data directories (these should be mounted as volumes)
+data/raw/
+data/processed/
