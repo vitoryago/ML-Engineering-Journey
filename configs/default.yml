@@ -1,0 +1,18 @@
+################################################################################
+# default.yml
+# Purpose: Default configuration settings for our ML project
+# This file contains non-sensitive default values that can be
+# version-controlled safely.
+################################################################################
+
+# Model Configuration
+# These settings affect how our model behaves during training and inference
+model_name: "bert-base-uncased"   # Using BERT for text processing
+batch_size: 32                    # Number of samples to process in each batch
+learning_rate: 0.001              # Conservative learning rate for stability
+
+# API credentials
+# These will be loaded from environment variables for security
+# Do not put actual credentials in this file
+telegram_token: null
+fatsecret_key: null

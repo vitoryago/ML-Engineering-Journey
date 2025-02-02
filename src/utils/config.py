@@ -58,7 +58,45 @@ class MLConfig:
         Note:
             Environment variables take precedence over YAML file values for sensitive settings.
         """
-        
+
+        # Load the base configuration from YAML file
         with open(file_path, 'r') as file:
             config_data = yaml.safe_load(file)
+
+            # Check for environment variables and override if they exist
+            # This is a security best practice - environment variables are safer
+            # than hardcoding sensitive information in configuration files
+            if os.getenv('TELEGRAM_TOKEN'):
+                config_data['telegram_token'] = os.getenv('TELEGRAM_TOKEN')
+            if os.getenv('FATSECRET_KEY'):
+                config_data['fatsecret_key'] = os.getenv('FATSECRET_KEY')
+            
             return cls(**config_data)
+        
+    def save(self, yaml_path: str) -> None:
+            """
+            Save the current configuration settings to a YAML file.
+
+            This method is useful for:
+            - Saving configurations that worked well
+            - Creating configuration backups
+            - Sharing configurations with others (excluding sensitive data)
+
+            Args:
+                yaml_path (str): Where to save the configuration file
+            Example:
+                # Save the current configuration to a file
+                config.save('configs/backup.yml')
+
+            Note:
+                This method does not save sensitive information like API credentials.
+                You should manually remove or replace these before sharing the file.
+            """
+
+            # Convert dataclass to dictionary, excluding None values
+            # This prevents saving empty/sensitive values to the file
+            config_data = {k: v for k, v in self.__dict__.items() if v is not None}
+
+            # Save configuration to YAML file
+            with open(yaml_path, 'w') as file:
+                yaml.dump(config_data, file)
